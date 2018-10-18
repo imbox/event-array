@@ -58,6 +58,5 @@ class EventArray extends Array {
     return this.emitter.rawListeners(eventName)
   }
 }
-console.log(new EventArray())
 
 module.exports = EventArray
