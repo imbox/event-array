@@ -57,6 +57,14 @@ class EventArray extends Array {
   rawListeners (eventName) {
     return this.emitter.rawListeners(eventName)
   }
+
+  // Override Array methods
+  flatMap (...args) {
+    return Array.from(this).flatMap(...args)
+  }
+  map (...args) {
+    return Array.from(this).map(...args)
+  }
 }
 
 module.exports = EventArray
