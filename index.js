@@ -1,11 +1,22 @@
 'use strict'
 const EventEmitter = require('events')
+const { Repeater } = require('@repeaterjs/repeater')
 
 class EventArray extends Array {
   constructor (...args) {
     super(...args)
     this.emitter = new EventEmitter()
     return this
+  }
+
+  [Symbol.asyncIterator] () {
+    const { emitter } = this
+    return new Repeater(async (push, stop) => {
+      const listener = item => push(item)
+      emitter.on('push', push)
+      await stop
+      emitter.removeListener('push', listener)
+    })
   }
 
   push (...args) {
@@ -75,6 +86,7 @@ class EventArray extends Array {
   flatMap (...args) {
     return Array.from(this).flatMap(...args)
   }
+
   map (...args) {
     return Array.from(this).map(...args)
   }
