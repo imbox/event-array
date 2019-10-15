@@ -1,6 +1,6 @@
 {
   "name": "event-array",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An array that emits events",
   "main": "index.js",
   "scripts": {
