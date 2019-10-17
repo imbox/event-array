@@ -12,10 +12,9 @@ class EventArray extends Array {
   [Symbol.asyncIterator] () {
     const { emitter } = this
     return new Repeater(async (push, stop) => {
-      const listener = item => push(item)
       emitter.on('push', push)
       await stop
-      emitter.removeListener('push', listener)
+      emitter.removeListener('push', push)
     })
   }
 
