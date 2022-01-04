@@ -1,11 +1,10 @@
-/* eslint-env mocha */
-require('should')
-const EventArray = require('../')
+import 'should'
+import EventArray from '../src'
 
 describe('EventArray', function () {
   it('once', function () {
     const ea = new EventArray()
-    let eventValues
+    let eventValues: number[] = []
     ea.once('push', function (...pushed) {
       eventValues = pushed
     })
@@ -15,9 +14,14 @@ describe('EventArray', function () {
   })
 
   it('map', function () {
-    const ea = new EventArray()
+    const ea = new EventArray<number>()
     ea.push(1, 2, 3)
     ea.map(x => x + 1).should.deepEqual([2, 3, 4])
+  })
+
+  it('flatMap', function () {
+    const ea = new EventArray('1', '2', '3')
+    ea.flatMap(x => [x + 'a']).should.deepEqual(['1a', '2a', '3a'])
   })
 
   it('async iterable', async function () {
@@ -32,6 +36,6 @@ describe('EventArray', function () {
       values.push(val)
       if (values.length === 3) break
     }
-    values.should.deepEqual([1, 2, 3])
+    values.should.deepEqual([[1], [2], [3]])
   })
 })
