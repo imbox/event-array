@@ -1,6 +1,6 @@
 import { EventEmitter, on } from 'events'
 
-export default class EventArray<T> extends Array<T> {
+class EventArray<T> extends Array<T> {
   emitter: EventEmitter
 
   constructor (...args: T[]) {
@@ -93,3 +93,5 @@ export default class EventArray<T> extends Array<T> {
     return Array.from(this).map(callbackFn)
   }
 }
+
+export = EventArray
